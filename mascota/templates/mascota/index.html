@@ -14,7 +14,7 @@
 <!--este es el menú para interactuar con la web-->
   <nav class="navbar navbar-dark bg-dark ">
     <div class="container-fluid">
-     <a class="navbar-brand" href="./index.html">MI MASCOTA FELIZ</a>
+     <a class="navbar-brand" href="">MI MASCOTA FELIZ</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
           </button>
@@ -26,10 +26,10 @@
                 <div class="offcanvas-body">
                   <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="./index.html">INICIO</a>
+                      <a class="nav-link active" aria-current="page" href="{% url 'index' %}">INICIO</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="./content/registro.html">REGISTRASE</a>
+                      <a class="nav-link" href="{% url 'registro'%}">REGISTRASE</a>
                     </li>
                      <li class="nav-item">
                         <a class="nav-link" href="./content/ventas.html">ENTRAR COMO INVITADO</a>
@@ -46,14 +46,14 @@
                           <div class="form-group">
                               <label for="email">Email</label>
                               <input type="email" class="form-control" id="email" placeholder="Email" required pattern=".+@gmail\.com">
-                              <div class="invalid-feedback">
+                              <div class="invalid-feedback email" style="display: none;">
                                   El email ingresado no se encuentra registrado.
                               </div>
                           </div>
                           <div class="form-group">
                               <label for="password">Contraseña</label>
                               <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
-                              <div class="invalid-feedback">
+                              <div class="invalid-feedback password" style="display: none;">
                                   La contraseña es inválida.
                               </div>
                           </div>
@@ -61,7 +61,7 @@
                           <div class="text-center mt-3">
                               <a class="text-white" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">¿Olvidaste tu contraseña?</a>
                           </div>
-                        </form>
+                      </form>
                     </div>
                   </ul> 
                 </div>
@@ -267,24 +267,55 @@
 
   });
 //función que valida que la cuenta ingresada en el login sea la que se muestra
-  function validarFormulario() {
-        var email = document.getElementById('email').value;
-        var password = document.getElementById('password').value;
+function validarFormulario() {
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
 
-        if (email.trim() !== 'matias@gmail.com') {
-            document.getElementById('email').classList.add('is-invalid');
-            return false;
+    // Realizar una solicitud AJAX a la vista de Django que maneje la autenticación
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/validar_cuenta/', true); // Ajusta la URL según tu configuración de URLs en Django
+
+    // Configura los encabezados y el envío de datos
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            if (response.valid) {
+                // Redirigir según el tipo de cuenta
+                if (response.is_admin) {
+                    window.location.href = '/admin_page/'; // Ruta para la página de administrador
+                } else {
+                    window.location.href = '/cliente_page/'; // Ruta para la página de cliente
+                }
+            } else {
+                // Mostrar mensaje de error dependiendo del tipo de error
+                if (response.error_type === 'email_not_registered') {
+                    document.getElementById('email').classList.add('is-invalid');
+                    document.getElementById('password').classList.remove('is-invalid');
+                    document.getElementById('password').value = ''; // Limpiar el campo de contraseña
+                    document.querySelector('.invalid-feedback.email').style.display = 'block';
+                    document.querySelector('.invalid-feedback.password').style.display = 'none';
+                } else if (response.error_type === 'invalid_password') {
+                    document.getElementById('password').classList.add('is-invalid');
+                    document.getElementById('email').classList.remove('is-invalid');
+                    document.querySelector('.invalid-feedback.email').style.display = 'none';
+                    document.querySelector('.invalid-feedback.password').style.display = 'block';
+                } else {
+                    alert('Error desconocido al validar la cuenta. Por favor, intenta nuevamente.');
+                }
+            }
+        } else {
+            alert('Error al validar la cuenta. Por favor, intenta nuevamente.');
         }
+    };
 
-        if (password.trim() !== '1234') {
-            document.getElementById('password').classList.add('is-invalid');
-            return false;
-        }
+    // Enviar los datos del formulario como JSON
+    var data = JSON.stringify({ email: email, password: password });
+    xhr.send(data);
 
-        // Si todos los campos son válidos, redireccionar a la página deseada
-        window.location.href = './content/ventas.html';
-        return false; // Para evitar que el formulario se envíe normalmente
-    }
+    return false; // Para evitar que el formulario se envíe normalmente
+}
+
   
 </script>
 </html>

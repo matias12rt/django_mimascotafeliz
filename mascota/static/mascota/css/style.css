@@ -1,3 +1,4 @@
+
 /*esto es para el carousel y la dimensiones de la pantalla*/
 .carousel-item {
   height: 32rem;
@@ -65,11 +66,6 @@
   width: 100%;
   display: flex;
 }
-.form-image {
-  flex: 1;
-  background: url('./img/qqq.jpg') no-repeat center center;
-  background-size: cover;
-}
 
 .form-content {
   flex: 1;
@@ -84,7 +80,7 @@
 
 .form-producto {
   flex: 1;
-  background: url('./img/producto\ para\ animales.jpg') no-repeat center center;
+  background: url('../img/producto\ para\ animales.jpg ') no-repeat center center;
   background-size: cover;
 }
 .bd-placeholder-img {
