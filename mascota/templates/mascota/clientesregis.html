@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <link rel="stylesheet" href="../css/bootstrap.min.css" >
+    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./style.css"> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<!--este es el menú para interactuar con la web-->
+   <nav class="navbar navbar-dark bg-dark ">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="../index.html">MI MASCOTA FELIZ</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                    <div class="offcanvas-header">
+                      <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">MENU PRINCIPAL</h5>
+                      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                      <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                          <a class="nav-link "  href="../index.html">INICIO</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link active" aria-current="page" href="./registro.html">REGISTRASE</a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="./ventas.html">ENTRAR COMO INVITADO</a>
+                          </li>
+                        <li class="nav-item dropdown">
+                             <li class="nav-item">
+                            <a class="nav-link" href="./veterinarios.html">VER ESPECIALISTAS</a>
+                         </li>
+                      </ul> 
+                    </div>
+                  </div>
+                </div>
+                <header class="container-fluid bg-primary d-flex justify-content-center" id="titu">
+                    <p class="text-light mb-0 p-2 fs-6">CLIENTES REGISTRADOS</p>
+                  </header>
+              </nav>
+<!--aqui es donde llengan los datos de los"clientes" de la api-->
+              <div class="container">
+                <div class="row">
+                    <h2>Datos de Clientes</h2>
+                </div>
+                <button type="button" class="btn btn-primary" id="traer">Traer Datos</button>
+                <div class="row" id="clientes-container"></div>
+</body>
+<script  type="text/javascript" src="./datos.js"></script>
+
+</html>

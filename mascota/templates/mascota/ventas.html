@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" >
+    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./style.css"> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="../index.html">MI MASCOTA FELIZ</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title " id="offcanvasDarkNavbarLabel" >MENU PRINCIPAL</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link"  href="../index.html">INICIO</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link " href="./registro.html">REGISTRASE</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="./ventas.html">TIENDA</a>
+                  </li>
+                  <li  class="nav-item">
+                    <a class="nav-link" href="./ingresopro.html ">INGRESAR PRODUCTO</a>
+                  </li>
+                     <li class="nav-item">
+                    <a class="nav-link" href="./veterinarios.html">VER ESPECIALISTAS</a>
+                 </li>
+                 <li class="nav-item">
+                  <a class="nav-link" href="./clientesregis.html">CLIENTES </a>
+                </li>
+              </ul> 
+            </div>
+          </div>
+        </div>
+        <header class="container-fluid bg-primary d-flex justify-content-center" id="titu">
+            <p class="text-light mb-0 p-2 fs-6">TIENDA MI MASCOTA FELIZ</p>
+          </header>
+    </nav>
+<!--card de productos -->
+    <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="col">
+              <div class="card shadow-sm">
+                <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="./img/producto1.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"><H5>CHAMPO DE PERRO</H5></text></img>
+                <div class="card-body">
+                  <p class="card-text">Nuestro champú para perros está formulado con ingredientes naturales que limpian y suavizan el pelaje, dejando a tu mascota fresca y libre de olores. Enriquecido con vitaminas y extractos de avena, este champú no solo hidrata la piel sino que también ayuda a reducir la picazón y la irritación. Ideal para todo tipo de pelajes, proporciona una limpieza profunda sin eliminar los aceites naturales esenciales.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" id="comprarBtn" class="btn btn-sm btn-outline-secondary"><h5>COMPRAR</h5></button>
+                      <div id="carritoFlotante"></div>
+                      <div id="carritoContenido">
+                        <img id="productoImg" src="./img/producto1.jpg" alt="Producto">
+                    </div>
+                    </div>
+                    <small class="text-body-secondary">$10,000</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card shadow-sm">
+                <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="./img/producto2.png" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"><H5>CHAMPO DE PERRO</H5></text></img>
+                <div class="card-body">
+                  <p class="card-text">Nuestro champú para perros está formulado con ingredientes naturales que limpian y suavizan el pelaje, dejando a tu mascota fresca y libre de olores. Enriquecido con vitaminas y extractos de avena, este champú no solo hidrata la piel sino que también ayuda a reducir la picazón y la irritación. Ideal para todo tipo de pelajes, proporciona una limpieza profunda sin eliminar los aceites naturales esenciales..</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" id="comprarBtn" class="btn btn-sm btn-outline-secondary"><h5>COMPRAR</h5></button>
+                      <div id="carritoFlotante"></div>
+                      <div id="carritoContenido">
+                        <img id="productoImg" src="./img/producto2.png" alt="Producto">
+                      </div>
+                    </div>
+                    <small class="text-body-secondary">$10,000</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card shadow-sm">
+                <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="./img/producto3.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"><H5>CHAMPO DE PERRO</H5></text></img>
+                <div class="card-body">
+                  <p class="card-text">Nuestro champú para perros está formulado con ingredientes naturales que limpian y suavizan el pelaje, dejando a tu mascota fresca y libre de olores. Enriquecido con vitaminas y extractos de avena, este champú no solo hidrata la piel sino que también ayuda a reducir la picazón y la irritación. Ideal para todo tipo de pelajes, proporciona una limpieza profunda sin eliminar los aceites naturales esenciales.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary"><h5>COMPRAR</h5></button>
+                    </div>
+                    <small class="text-body-secondary">10,000</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card shadow-sm">
+                <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="./img/producto4.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"><h5>Comida para Perro</h5></text></img>
+                <div class="card-body">
+                  <p class="card-text">Nuestra comida para perros está elaborada con ingredientes de alta calidad para asegurar una dieta balanceada y nutritiva. Rico en proteínas provenientes de carne real, junto con una mezcla de verduras frescas y granos integrales, esta fórmula apoya el desarrollo muscular, la salud digestiva y una piel y pelaje saludables. Sin colorantes ni conservantes artificiales, es ideal para perros de todas las razas y etapas de vida.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary"><h5>COMPRAR</h5></button>
+                    </div>
+                    <small class="text-body-secondary">$10,000</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card shadow-sm">
+                <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="./img/producto5.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"><h5>Comida para Gato</h5></text></img>
+                <div class="card-body">
+                  <p class="card-text">La comida para gatos ofrece una nutrición completa y equilibrada, formulada para satisfacer las necesidades dietéticas de los felinos. Hecha con carne fresca y enriquecida con vitaminas y minerales esenciales, apoya la salud del tracto urinario, la función renal y un pelaje brillante. Contiene taurina para la salud cardíaca y visual, y está libre de rellenos y aditivos artificiales, proporcionando una alimentación premium para gatos de todas las edades.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary"><h5>COMPRAR</h5></button>
+                    </div>
+                    <small class="text-body-secondary">10,000</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card shadow-sm">
+                <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="./img/producto6.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"><h5>Comida para Gato</h5></text></img>
+                <div class="card-body">
+                  <p class="card-text">La comida para gatos ofrece una nutrición completa y equilibrada, formulada para satisfacer las necesidades dietéticas de los felinos. Hecha con carne fresca y enriquecida con vitaminas y minerales esenciales, apoya la salud del tracto urinario, la función renal y un pelaje brillante. Contiene taurina para la salud cardíaca y visual, y está libre de rellenos y aditivos artificiales, proporcionando una alimentación premium para gatos de todas las edades.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary"><h5>COMPRAR</h5></button>
+                    </div>
+                    <small class="text-body-secondary">10,000</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+<script>
+//codigo jqueri para el carrito y sus funciones
+  $(document).ready(function() {
+    // Mostrar el carrito flotante suavemente al hacer clic en el botón comprar
+    $('#comprarBtn').click(function(event) {
+        event.stopPropagation(); // Evitar que el clic se propague al documento y oculte el carrito
+        $('#carritoFlotante').fadeIn();
+        $('#carritoContenido').fadeIn();
+    });
+
+
+    // Mostrar la imagen del producto al pasar el mouse sobre el carrito
+    $('#carritoFlotante').hover(
+        function() {
+            $('#carritoContenido').fadeIn();
+        },
+        function() {
+            $('#carritoContenido').fadeOut();
+        }
+    );
+});
+  </script>
+</html>
