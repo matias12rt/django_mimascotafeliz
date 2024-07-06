@@ -12,260 +12,260 @@
 </head>
 <body>  
 <!--este es el menú para interactuar con la web-->
-  <nav class="navbar navbar-dark bg-dark ">
-    <div class="container-fluid">
-     <a class="navbar-brand" href="">MI MASCOTA FELIZ</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-          </button>
-            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-              <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">MENU PRINCIPAL</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-              </div>
-                <div class="offcanvas-body">
-                  <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                    <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="{% url 'index' %}">INICIO</a>
+<nav class="navbar navbar-dark bg-dark ">
+  <div class="container-fluid">
+   <a class="navbar-brand" href="">MI MASCOTA FELIZ</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+        </button>
+          <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">MENU PRINCIPAL</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+              <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'index' %}">INICIO</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'registro'%}">REGISTRASE</a>
+                  </li>
+                   <li class="nav-item">
+                      <a class="nav-link" href="{% url 'ventas' %}">ENTRAR COMO INVITADO</a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="{% url 'registro'%}">REGISTRASE</a>
-                    </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="./content/ventas.html">ENTRAR COMO INVITADO</a>
-                      </li>
-                         <li class="nav-item">
-                        <a class="nav-link" href="./content/veterinarios.html">VER ESPECIALISTAS</a>
-                     </li>
+                       <li class="nav-item">
+                      <a class="nav-link" href="{% url 'admins' %}">REGISTRAR VENDEDOR</a>
+                   </li>
 <!--este sería el login dentro de mi menú -->                    
-                     <div class="login-container">
-                        <div class="login-icon">
-                            <img src="{% static 'mascota/img/login.jpg' %}" alt="Gato">
+                   <div class="login-container">
+                      <div class="login-icon">
+                          <img src="{% static 'mascota/img/login.jpg' %}" alt="Gato">
+                      </div>
+                      <form id="loginForm" onsubmit="return validarFormulario()">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Email" required >
+                            <div class="invalid-feedback email" style="display: none;">
+                                El email ingresado no se encuentra registrado.
+                            </div>
                         </div>
-                        <form id="loginForm" onsubmit="return validarFormulario()">
-                          <div class="form-group">
-                              <label for="email">Email</label>
-                              <input type="email" class="form-control" id="email" placeholder="Email" required pattern=".+@gmail\.com">
-                              <div class="invalid-feedback email" style="display: none;">
-                                  El email ingresado no se encuentra registrado.
-                              </div>
-                          </div>
-                          <div class="form-group">
-                              <label for="password">Contraseña</label>
-                              <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
-                              <div class="invalid-feedback password" style="display: none;">
-                                  La contraseña es inválida.
-                              </div>
-                          </div>
-                          <button type="submit" class="btn btn-primary btn-block">INICIAR</button>
-                          <div class="text-center mt-3">
-                              <a class="text-white" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">¿Olvidaste tu contraseña?</a>
-                          </div>
-                      </form>
-                    </div>
-                  </ul> 
-                </div>
+                        <div class="form-group">
+                            <label for="password">Contraseña</label>
+                            <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
+                            <div class="invalid-feedback password" style="display: none;">
+                                La contraseña es inválida.
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">INICIAR</button>
+                        <div class="text-center mt-3">
+                            <a class="text-white" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">¿Olvidaste tu contraseña?</a>
+                        </div>
+                    </form>
+                  </div>
+                </ul> 
               </div>
-    </div>
+            </div>
+  </div>
 <!--el título azul que acompaña a mi menú-->
-    <header class="container-fluid bg-primary d-flex justify-content-center" id="titu">
-      <p class="text-light mb-0 p-2 fs-6">BIENVENIDO A MI MASCOTA FELIZ</p>
-    </header>
-  </nav>
- <!--El modal que aparece luego de apretar "Olvidaste mi contraseña"-->
+  <header class="container-fluid bg-primary d-flex justify-content-center" id="titu">
+    <p class="text-light mb-0 p-2 fs-6">BIENVENIDO A MI MASCOTA FELIZ</p>
+  </header>
+</nav>
+<!--El modal que aparece luego de apretar "Olvidaste mi contraseña"-->
 
-            <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                  <div class="modal-content">
-                      <div class="modal-header">
-                          <h5 class="modal-title" id="forgotPasswordModalLabel">Recuperar Contraseña</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <form class="modal-body" class="needs-validation">
-                          <p>Por favor, ingresa tu correo electrónico para recuperar tu contraseña.</p>
-                       <input type="email" class="form-control" placeholder="Correo electrónico" placeholder="nombre@gmail.com" required pattern=".+@gmail\.com" >
-                          <div>
-                            <button  class="btn btn-primary" type="submit">Enviar</button>
-                          </div>
-                         
-                      </form>
-                      <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                      </div>
-                  </div>
-              </div>
-            </div>
-<!--este es mi carrusel-->
-        
-          <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-              <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-              <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-              <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img class="bd-placeholder-img" width="100%" height="100%" src="{% static 'mascota/img/fondo.jpg' %}" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></img>
-                <div class="container">
-                  <div class="carousel-caption text-start">
-                    <h1>BIENVENIDO A LAS MEJORES OFERTAS</h1>
-                    <p class="opacity-75">Si deseas conocer nuestra tienda as click en el boton </p>
-                    <p><a class="btn btn-lg btn-primary" href="./content/ventas.html">Tienda</a></p>
-                  </div>
+          <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="forgotPasswordModalLabel">Recuperar Contraseña</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form class="modal-body" class="needs-validation">
+                        <p>Por favor, ingresa tu correo electrónico para recuperar tu contraseña.</p>
+                     <input type="email" class="form-control" placeholder="Correo electrónico" placeholder="nombre@gmail.com" required pattern=".+@gmail\.com" >
+                        <div>
+                          <button  class="btn btn-primary" type="submit">Enviar</button>
+                        </div>
+                       
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
                 </div>
-              </div>
-              <div class="carousel-item">
-                <img class="bd-placeholder-img" width="100%" height="100%" src="{% static 'mascota/img/carrusel2.jpg' %}" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></img>
-                <div class="container">
-                  <div class="carousel-caption">
-                    <h1>¿QUIERES SER PARTE?</h1>
-                    <p>!!Para ser parte de mi mascota feliz, te puedes registrar de manera gratuita.</p>
-                    <p><a class="btn btn-lg btn-primary" href="./content/registro.html">REGISTRARME</a></p>
-                  </div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <img class="bd-placeholder-img" width="100%" height="100%" src="{% static 'mascota/img/espe.avif' %}" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></img>
-                <div class="container">
-                  <div class="carousel-caption text-end">
-                    <h1>¿QUIERES CONOCER A NUESTROS ESPESIALISTAS?</h1>
-                    <p>Puedes conocerlos haciendo click en el siguiente boton</p>
-                    <p><a class="btn btn-lg btn-primary" href="./content/veterinarios.html">ESPECIALISTAS</a></p>
-                  </div>
-                </div>
-              </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
           </div>
-        
-<!--una breve descripción-->
-           
-        <section class="d-flex flex-column justify-content-center align-items-center pt-5  text-center w-50 m-auto"  id="intro">
-        <h1>EN MACOSTA FELIZ</h1>
-            <p>Descubre nuestra selección de productos para tus compañeros peludos.
-                 Desde alimentos nutritivos hasta juguetes divertidos, tenemos todo lo que necesitas 
-                 para mantener a tus mascotas felices y saludables. Explora nuestras ofertas 
-                 y haz que cada día sea especial para tus amigos de cuatro patas
-            </p>
-        </section>
-<!--un diseño de Bootstrap con imágenes y unos párrafos desplegables-->
-     
-        <div class="container marketing">
-          <div class="row">
-            <div class="col-lg-4">
-                <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="{% static 'mascota/img/2.jpg' %}" alt="Placeholder">
-                <h2 class="fw-normal">Higiene para Perros y Gatos</h2>
-                <p>Mantener una buena higiene en nuestras mascotas es esencial para su salud y bienestar. Para los perros, es importante bañarlos cada 4-6 semanas con un champú específico, cepillar su pelaje semanalmente, recortar sus uñas mensualmente y limpiar sus oídos y dientes regularmente. Los gatos, por otro lado, necesitan un cepillado frecuente, recorte de uñas cada pocas semanas, y una caja de arena limpia diariamente. Inspeccionar regularmente a ambos en busca de parásitos y llevarlos al veterinario para chequeos y vacunas es crucial. Con estos cuidados, nuestros amigos peludos se mantendrán felices y saludables.</p>
-                <p class="more-content" style="display: none;">Perros:
-                  Baño: Es importante bañarlos cada 4-6 semanas con un champú específico para perros que respete su piel y pelaje.
-                  Cepillado: Cepillar su pelaje semanalmente ayuda a eliminar pelos muertos y a prevenir enredos y esteras.
-                  Recorte de uñas: Las uñas deben recortarse mensualmente para evitar que se rompan o se encarnen.
-                  Limpieza de oídos y dientes: Limpiar sus oídos y dientes regularmente previene infecciones y enfermedades dentales.
-                  Gatos:
-                  Cepillado: Los gatos necesitan un cepillado frecuente, especialmente las razas de pelo largo, para evitar bolas de pelo y mantener su pelaje en buen estado.
-                  Recorte de uñas: El recorte de uñas debe realizarse cada pocas semanas para evitar que se enganchen y rompan.
-                  Caja de arena: Mantener una caja de arena limpia diariamente es crucial para la higiene de los gatos.
-                  Ambos:
-                  Inspección: Inspeccionar regularmente a perros y gatos en busca de parásitos como pulgas y garrapatas es esencial.
-                  Veterinario: Llevarlos al veterinario para chequeos y vacunas es crucial para prevenir enfermedades y mantener su salud.
-                  Con estos cuidados, nuestros amigos peludos se mantendrán felices y saludables, disfrutando de una vida llena de bienestar.</p>
-                <p><a class="btn btn-secondary show-more" href="#">ver mas.. &raquo;</a></p>
+<!--este es mi carrusel-->
+      
+        <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="bd-placeholder-img" width="100%" height="100%" src="{% static 'mascota/img/fondo.jpg' %}" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></img>
+              <div class="container">
+                <div class="carousel-caption text-start">
+                  <h1>BIENVENIDO A LAS MEJORES OFERTAS</h1>
+                  <p class="opacity-75">Si deseas conocer nuestra tienda as click en el boton </p>
+                  <p><a class="btn btn-lg btn-primary" href="./content/ventas.html">Tienda</a></p>
+                </div>
+              </div>
             </div>
-            <div class="col-lg-4">
-                <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="{% static 'mascota/img/3.jfif' %}" alt="Placeholder">
-                <h2 class="fw-normal">Buena Alimentación para Perros y Gatos</h2>
-                <p>Una dieta equilibrada es fundamental para la salud de nuestros perros y gatos. Los perros necesitan una alimentación que incluya proteínas de alta calidad, carbohidratos, grasas saludables, vitaminas y minerales. Los gatos, siendo carnívoros estrictos, requieren una dieta rica en proteínas animales y taurina. Es esencial proporcionarles alimentos comerciales de alta calidad o dietas caseras balanceadas bajo supervisión veterinaria. Además, siempre deben tener acceso a agua fresca. Evita darles alimentos tóxicos como chocolate, cebolla y uvas. Una buena alimentación asegura que nuestras mascotas tengan energía, un sistema inmunológico fuerte y una vida larga y saludable.</p>
-                <p class="more-content" style="display: none;">
-                  Investigación y Educación: Antes que nada, investiga y educa sobre las necesidades nutricionales específicas de perros y gatos. Entender sus requisitos dietéticos te ayudará a tomar decisiones informadas sobre qué alimentos son adecuados para ellos.
-
-                  Consulta Veterinaria: Programa una consulta con tu veterinario de confianza. El veterinario podrá ofrecerte orientación personalizada basada en la edad, tamaño, nivel de actividad y cualquier condición médica específica de tu mascota.
-                  
-                  Selecciona Alimentos de Calidad: Elige alimentos comerciales de alta calidad que estén formulados específicamente para la etapa de vida de tu mascota (cachorro, adulto, senior) y su tamaño. Busca marcas que utilicen ingredientes naturales y evita aquellos que contengan subproductos animales, colorantes artificiales y conservantes.
-                  
-                  Alternativa de Dieta Casera: Si prefieres una dieta casera, trabaja con tu veterinario para desarrollar una receta equilibrada que incluya proteínas magras, carbohidratos saludables, grasas esenciales, vitaminas y minerales. Asegúrate de seguir las pautas de preparación y porciones adecuadas.
-                  
-                  Proporciona Acceso a Agua Fresca: Coloca recipientes de agua fresca en varias áreas de la casa y asegúrate de que estén siempre llenos. Los perros y gatos deben tener acceso constante al agua para mantenerse hidratados.
-                  
-                  Evita Alimentos Peligrosos: Mantén alejados de tus mascotas alimentos que puedan ser dañinos para ellos, como el chocolate, cebolla, uvas, aguacate, entre otros. Estos alimentos pueden causar desde molestias estomacales hasta problemas de salud graves e incluso ser mortales en algunos casos.
-                  
-                  Observa y Ajusta: Observa el peso corporal, el nivel de energía y el estado de ánimo de tu mascota. Si notas cambios significativos, consulta con tu veterinario para ajustar la dieta según sea necesario.
-                  
-                  Visitas de Seguimiento: Programa visitas regulares de seguimiento con tu veterinario para evaluar la salud y el bienestar de tu mascota. El veterinario puede realizar ajustes en la dieta según sea necesario para garantizar que tu perro o gato estén recibiendo los nutrientes adecuados.
-                  
-                  Siguiendo estos pasos, puedes asegurarte de que tu perro o gato reciban una alimentación adecuada que promueva su salud y felicidad a lo largo de su vida.</p>
-                <p><a class="btn btn-secondary show-more" href="#">ver mas.. &raquo;</a></p>
+            <div class="carousel-item">
+              <img class="bd-placeholder-img" width="100%" height="100%" src="{% static 'mascota/img/carrusel2.jpg' %}" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></img>
+              <div class="container">
+                <div class="carousel-caption">
+                  <h1>¿QUIERES SER PARTE?</h1>
+                  <p>!!Para ser parte de mi mascota feliz, te puedes registrar de manera gratuita.</p>
+                  <p><a class="btn btn-lg btn-primary" href="./content/registro.html">REGISTRARME</a></p>
+                </div>
+              </div>
             </div>
-            <div class="col-lg-4">
-                <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="{% static 'mascota/img/4.png' %}" alt="Placeholder">
-                <h2 class="fw-normal">Cómo Entretener a tu Perro y Gato</h2>
-                <p>Mantener a tus mascotas entretenidas es clave para su bienestar. Los perros disfrutan de paseos diarios, juegos de buscar la pelota, y juguetes interactivos que estimulan su mente. Los gatos, por su parte, adoran los juguetes que imitan el movimiento de presas, como plumas y láseres, así como los árboles para trepar y rascadores. Ambos necesitan tiempo de calidad contigo, así que dedica tiempo a jugar y explorar nuevas actividades juntos. Proveerles variedad en sus juguetes y juegos ayuda a mantenerlos felices y saludables.</p>
-                <p class="more-content" style="display: none;">Conoce sus Preferencias: Observa el comportamiento y las preferencias de tus mascotas para entender qué tipos de juegos y juguetes disfrutan más. Algunos perros pueden preferir juegos de buscar, mientras que a otros les encanta masticar juguetes resistentes. Los gatos pueden disfrutar de juguetes que imitan presas o de actividades de caza.
-
-                  Paseos y Ejercicio: Para los perros, los paseos diarios son esenciales para su bienestar físico y mental. Asegúrate de sacar a pasear a tu perro regularmente y proporcionarle la oportunidad de explorar y ejercitarse. Esto no solo ayuda a mantenerlos saludables, sino que también les proporciona estimulación mental.
-                  
-                  Juguetes Interactivos: Proporciona a tus perros juguetes interactivos que desafíen su mente y los mantengan ocupados. Los juguetes de relleno con golosinas o juguetes que emiten sonidos al ser manipulados pueden ser especialmente divertidos y estimulantes.
-                  
-                  Estimulación para Gatos: Los gatos necesitan oportunidades para cazar y jugar. Ofrece juguetes que imiten el movimiento de presas, como plumas atadas a una cuerda o juguetes que se muevan de manera errática. Los láseres y los juguetes que pueden ser perseguidos también pueden ser muy divertidos para los gatos.
-                  
-                  Áreas de Juego Designadas: Crea áreas designadas para el juego donde tus mascotas se sientan seguras y cómodas. Para los gatos, considera instalar un árbol para trepar o un rascador para satisfacer su instinto natural de afilarse las uñas y trepar.
-                  
-                  Tiempo de Calidad Contigo: Dedica tiempo cada día para jugar y pasar tiempo de calidad con tus mascotas. El vínculo que desarrollas a través del juego es importante para su bienestar emocional y para fortalecer tu relación con ellos.
-                  
-                  Rotación de Juguetes: Introduce variedad rotando los juguetes de tus mascotas regularmente. Esto ayuda a mantener su interés y evita que se aburran de los mismos juguetes una y otra vez.
-                  
-                  Explora Nuevas Actividades: Prueba nuevas actividades y juegos para mantener el interés de tus mascotas. Esto puede incluir juegos de olfateo para perros o enseñar trucos nuevos a tus gatos.
-                  
-                  Siguiendo estos pasos, puedes asegurarte de que tus perros y gatos estén entretenidos, felices y saludables.</p>
-                <p><a class="btn btn-secondary show-more" href="#">ver mas.. &raquo;</a></p>
+            <div class="carousel-item">
+              <img class="bd-placeholder-img" width="100%" height="100%" src="{% static 'mascota/img/espe.avif' %}" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></img>
+              <div class="container">
+                <div class="carousel-caption text-end">
+                  <h1>¿QUIERES CONOCER A NUESTROS ESPESIALISTAS?</h1>
+                  <p>Puedes conocerlos haciendo click en el siguiente boton</p>
+                  <p><a class="btn btn-lg btn-primary" href="./content/veterinarios.html">ESPECIALISTAS</a></p>
+                </div>
+              </div>
             </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
         </div>
-        
-      </div>    
+      
+<!--una breve descripción-->
+         
+      <section class="d-flex flex-column justify-content-center align-items-center pt-5  text-center w-50 m-auto"  id="intro">
+      <h1>EN MACOSTA FELIZ</h1>
+          <p>Descubre nuestra selección de productos para tus compañeros peludos.
+               Desde alimentos nutritivos hasta juguetes divertidos, tenemos todo lo que necesitas 
+               para mantener a tus mascotas felices y saludables. Explora nuestras ofertas 
+               y haz que cada día sea especial para tus amigos de cuatro patas
+          </p>
+      </section>
+<!--un diseño de Bootstrap con imágenes y unos párrafos desplegables-->
+   
+      <div class="container marketing">
+        <div class="row">
+          <div class="col-lg-4">
+              <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="{% static 'mascota/img/2.jpg' %}" alt="Placeholder">
+              <h2 class="fw-normal">Higiene para Perros y Gatos</h2>
+              <p>Mantener una buena higiene en nuestras mascotas es esencial para su salud y bienestar. Para los perros, es importante bañarlos cada 4-6 semanas con un champú específico, cepillar su pelaje semanalmente, recortar sus uñas mensualmente y limpiar sus oídos y dientes regularmente. Los gatos, por otro lado, necesitan un cepillado frecuente, recorte de uñas cada pocas semanas, y una caja de arena limpia diariamente. Inspeccionar regularmente a ambos en busca de parásitos y llevarlos al veterinario para chequeos y vacunas es crucial. Con estos cuidados, nuestros amigos peludos se mantendrán felices y saludables.</p>
+              <p class="more-content" style="display: none;">Perros:
+                Baño: Es importante bañarlos cada 4-6 semanas con un champú específico para perros que respete su piel y pelaje.
+                Cepillado: Cepillar su pelaje semanalmente ayuda a eliminar pelos muertos y a prevenir enredos y esteras.
+                Recorte de uñas: Las uñas deben recortarse mensualmente para evitar que se rompan o se encarnen.
+                Limpieza de oídos y dientes: Limpiar sus oídos y dientes regularmente previene infecciones y enfermedades dentales.
+                Gatos:
+                Cepillado: Los gatos necesitan un cepillado frecuente, especialmente las razas de pelo largo, para evitar bolas de pelo y mantener su pelaje en buen estado.
+                Recorte de uñas: El recorte de uñas debe realizarse cada pocas semanas para evitar que se enganchen y rompan.
+                Caja de arena: Mantener una caja de arena limpia diariamente es crucial para la higiene de los gatos.
+                Ambos:
+                Inspección: Inspeccionar regularmente a perros y gatos en busca de parásitos como pulgas y garrapatas es esencial.
+                Veterinario: Llevarlos al veterinario para chequeos y vacunas es crucial para prevenir enfermedades y mantener su salud.
+                Con estos cuidados, nuestros amigos peludos se mantendrán felices y saludables, disfrutando de una vida llena de bienestar.</p>
+              <p><a class="btn btn-secondary show-more" href="#">ver mas.. &raquo;</a></p>
+          </div>
+          <div class="col-lg-4">
+              <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="{% static 'mascota/img/3.jfif' %}" alt="Placeholder">
+              <h2 class="fw-normal">Buena Alimentación para Perros y Gatos</h2>
+              <p>Una dieta equilibrada es fundamental para la salud de nuestros perros y gatos. Los perros necesitan una alimentación que incluya proteínas de alta calidad, carbohidratos, grasas saludables, vitaminas y minerales. Los gatos, siendo carnívoros estrictos, requieren una dieta rica en proteínas animales y taurina. Es esencial proporcionarles alimentos comerciales de alta calidad o dietas caseras balanceadas bajo supervisión veterinaria. Además, siempre deben tener acceso a agua fresca. Evita darles alimentos tóxicos como chocolate, cebolla y uvas. Una buena alimentación asegura que nuestras mascotas tengan energía, un sistema inmunológico fuerte y una vida larga y saludable.</p>
+              <p class="more-content" style="display: none;">
+                Investigación y Educación: Antes que nada, investiga y educa sobre las necesidades nutricionales específicas de perros y gatos. Entender sus requisitos dietéticos te ayudará a tomar decisiones informadas sobre qué alimentos son adecuados para ellos.
+
+                Consulta Veterinaria: Programa una consulta con tu veterinario de confianza. El veterinario podrá ofrecerte orientación personalizada basada en la edad, tamaño, nivel de actividad y cualquier condición médica específica de tu mascota.
+                
+                Selecciona Alimentos de Calidad: Elige alimentos comerciales de alta calidad que estén formulados específicamente para la etapa de vida de tu mascota (cachorro, adulto, senior) y su tamaño. Busca marcas que utilicen ingredientes naturales y evita aquellos que contengan subproductos animales, colorantes artificiales y conservantes.
+                
+                Alternativa de Dieta Casera: Si prefieres una dieta casera, trabaja con tu veterinario para desarrollar una receta equilibrada que incluya proteínas magras, carbohidratos saludables, grasas esenciales, vitaminas y minerales. Asegúrate de seguir las pautas de preparación y porciones adecuadas.
+                
+                Proporciona Acceso a Agua Fresca: Coloca recipientes de agua fresca en varias áreas de la casa y asegúrate de que estén siempre llenos. Los perros y gatos deben tener acceso constante al agua para mantenerse hidratados.
+                
+                Evita Alimentos Peligrosos: Mantén alejados de tus mascotas alimentos que puedan ser dañinos para ellos, como el chocolate, cebolla, uvas, aguacate, entre otros. Estos alimentos pueden causar desde molestias estomacales hasta problemas de salud graves e incluso ser mortales en algunos casos.
+                
+                Observa y Ajusta: Observa el peso corporal, el nivel de energía y el estado de ánimo de tu mascota. Si notas cambios significativos, consulta con tu veterinario para ajustar la dieta según sea necesario.
+                
+                Visitas de Seguimiento: Programa visitas regulares de seguimiento con tu veterinario para evaluar la salud y el bienestar de tu mascota. El veterinario puede realizar ajustes en la dieta según sea necesario para garantizar que tu perro o gato estén recibiendo los nutrientes adecuados.
+                
+                Siguiendo estos pasos, puedes asegurarte de que tu perro o gato reciban una alimentación adecuada que promueva su salud y felicidad a lo largo de su vida.</p>
+              <p><a class="btn btn-secondary show-more" href="#">ver mas.. &raquo;</a></p>
+          </div>
+          <div class="col-lg-4">
+              <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="{% static 'mascota/img/4.png' %}" alt="Placeholder">
+              <h2 class="fw-normal">Cómo Entretener a tu Perro y Gato</h2>
+              <p>Mantener a tus mascotas entretenidas es clave para su bienestar. Los perros disfrutan de paseos diarios, juegos de buscar la pelota, y juguetes interactivos que estimulan su mente. Los gatos, por su parte, adoran los juguetes que imitan el movimiento de presas, como plumas y láseres, así como los árboles para trepar y rascadores. Ambos necesitan tiempo de calidad contigo, así que dedica tiempo a jugar y explorar nuevas actividades juntos. Proveerles variedad en sus juguetes y juegos ayuda a mantenerlos felices y saludables.</p>
+              <p class="more-content" style="display: none;">Conoce sus Preferencias: Observa el comportamiento y las preferencias de tus mascotas para entender qué tipos de juegos y juguetes disfrutan más. Algunos perros pueden preferir juegos de buscar, mientras que a otros les encanta masticar juguetes resistentes. Los gatos pueden disfrutar de juguetes que imitan presas o de actividades de caza.
+
+                Paseos y Ejercicio: Para los perros, los paseos diarios son esenciales para su bienestar físico y mental. Asegúrate de sacar a pasear a tu perro regularmente y proporcionarle la oportunidad de explorar y ejercitarse. Esto no solo ayuda a mantenerlos saludables, sino que también les proporciona estimulación mental.
+                
+                Juguetes Interactivos: Proporciona a tus perros juguetes interactivos que desafíen su mente y los mantengan ocupados. Los juguetes de relleno con golosinas o juguetes que emiten sonidos al ser manipulados pueden ser especialmente divertidos y estimulantes.
+                
+                Estimulación para Gatos: Los gatos necesitan oportunidades para cazar y jugar. Ofrece juguetes que imiten el movimiento de presas, como plumas atadas a una cuerda o juguetes que se muevan de manera errática. Los láseres y los juguetes que pueden ser perseguidos también pueden ser muy divertidos para los gatos.
+                
+                Áreas de Juego Designadas: Crea áreas designadas para el juego donde tus mascotas se sientan seguras y cómodas. Para los gatos, considera instalar un árbol para trepar o un rascador para satisfacer su instinto natural de afilarse las uñas y trepar.
+                
+                Tiempo de Calidad Contigo: Dedica tiempo cada día para jugar y pasar tiempo de calidad con tus mascotas. El vínculo que desarrollas a través del juego es importante para su bienestar emocional y para fortalecer tu relación con ellos.
+                
+                Rotación de Juguetes: Introduce variedad rotando los juguetes de tus mascotas regularmente. Esto ayuda a mantener su interés y evita que se aburran de los mismos juguetes una y otra vez.
+                
+                Explora Nuevas Actividades: Prueba nuevas actividades y juegos para mantener el interés de tus mascotas. Esto puede incluir juegos de olfateo para perros o enseñar trucos nuevos a tus gatos.
+                
+                Siguiendo estos pasos, puedes asegurarte de que tus perros y gatos estén entretenidos, felices y saludables.</p>
+              <p><a class="btn btn-secondary show-more" href="#">ver mas.. &raquo;</a></p>
+          </div>
+      </div>
+      
+    </div>    
 </body>
 <!--código script que hace una función para desplegar un párrafo más-->
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const showMoreButtons = document.querySelectorAll('.show-more');
+document.addEventListener("DOMContentLoaded", function() {
+  const showMoreButtons = document.querySelectorAll('.show-more');
 
-    showMoreButtons.forEach(button => {
-        button.addEventListener('click', function(event) {
-            event.preventDefault();
-            const moreContent = this.parentElement.previousElementSibling;
-            if (moreContent.style.display === "none") {
-                moreContent.style.display = "block";
-                this.textContent = "ver menos.. «";
-            } else {
-                moreContent.style.display = "none";
-                this.textContent = "ver mas.. »";
-            }
-        });
-    });
+  showMoreButtons.forEach(button => {
+      button.addEventListener('click', function(event) {
+          event.preventDefault();
+          const moreContent = this.parentElement.previousElementSibling;
+          if (moreContent.style.display === "none") {
+              moreContent.style.display = "block";
+              this.textContent = "ver menos.. «";
+          } else {
+              moreContent.style.display = "none";
+              this.textContent = "ver mas.. »";
+          }
+      });
+  });
 });
 //función que valida los campos del modal, en este caso el correo
-  (function  (){
-    'use strict'
-    var forms = document.querySelectorAll('needs-validation')
-    array.prototype.slice.call(forms)
-    .forEach(function(form){
-      form.addEventListener('sumbit', function(event){
-        if(!form.checkValidity()){
-          event.preventDefault()
-          event.stopPropagation()
-        }
-     form.classList.add('was-was-validated')
-      }, false)
-    
-    })
+(function  (){
+  'use strict'
+  var forms = document.querySelectorAll('needs-validation')
+  array.prototype.slice.call(forms)
+  .forEach(function(form){
+    form.addEventListener('sumbit', function(event){
+      if(!form.checkValidity()){
+        event.preventDefault()
+        event.stopPropagation()
+      }
+   form.classList.add('was-was-validated')
+    }, false)
+  
+  })
 
-  });
+});
 //función que valida que la cuenta ingresada en el login sea la que se muestra
 function validarFormulario() {
     var email = document.getElementById('email').value;
@@ -283,9 +283,9 @@ function validarFormulario() {
             if (response.valid) {
                 // Redirigir según el tipo de cuenta
                 if (response.is_admin) {
-                    window.location.href = '/admin_page/'; // Ruta para la página de administrador
+                    window.location.href = '/crud/'; // Ruta para la página de administrador
                 } else {
-                    window.location.href = '/cliente_page/'; // Ruta para la página de cliente
+                    window.location.href = '/ventas/'; // Ruta para la página de cliente
                 }
             } else {
                 // Mostrar mensaje de error dependiendo del tipo de error
@@ -315,6 +315,7 @@ function validarFormulario() {
 
     return false; // Para evitar que el formulario se envíe normalmente
 }
+
 
   
 </script>

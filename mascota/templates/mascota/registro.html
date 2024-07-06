@@ -29,10 +29,10 @@
                           <a class="nav-link "  href="{% url 'index' %}">INICIO</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="./registro.html">REGISTRASE</a>
+                          <a class="nav-link active" aria-current="page" href="{% url 'registro' %}">REGISTRASE</a>
                         </li>
                          <li class="nav-item">
-                            <a class="nav-link" href="./ventas.html">ENTRAR COMO INVITADO</a>
+                            <a class="nav-link" href="{% url 'ventas' %}">ENTRAR COMO INVITADO</a>
                           </li>
                       </ul> 
                     </div>
@@ -44,53 +44,59 @@
               </nav>
               <div class="container form-container">
                 <div class="form-box">
-                    <img src="{% static 'mascota/img/qqq.jpg'%} " width="80px" height="80px"></img>
+                    <img src="{% static 'mascota/img/qqq.jpg' %}" width="80px" height="80px">
                     <div class="form-content">
                         <h2 class="text-center mb-4">Formulario de Registro</h2>
-                        <form class="needs-validation" name="registro" novalidate>
+                        <form class="needs-validation"  name="registro" method="post" novalidate>
+                            {% csrf_token %}
                             <div class="mb-3">
                                 <label for="gmail" class="form-label">Gmail</label>
-                                <input type="email" class="form-control" id="gmail" placeholder="nombre@gmail.com" required pattern=".+@gmail\.com">
+                                <input type="email" class="form-control" id="gmail" name="gmail" required>
                                 <div class="invalid-feedback">
                                     Por favor ingresa un Gmail válido.
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="nombre" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ\s]+" placeholder="Nombre" required>
+                                <input type="text" class="form-control" id="nombre" name="nombre" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ\s]+"  required>
                                 <div class="invalid-feedback">
                                     Por favor ingresa tu nombre.
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="apellido" class="form-label">Apellido</label>
-                                <input type="text" class="form-control" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ\s]+" id="apellido" placeholder="Apellido" required>
+                                <input type="text" class="form-control" id="apellido" name="apellido"  required>
                                 <div class="invalid-feedback">
-                                    Por favor ingresa tu apellido no pueden ser numeros.
+                                    Por favor ingresa tu apellido.
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="direccion" class="form-label">Dirección</label>
-                                <input type="text" class="form-control" id="direccion" minlength="6" placeholder="Dirección" required>
+                                <input type="text" class="form-control" id="direccion" name="direccion" minlength="6"  required>
                                 <div class="invalid-feedback">
                                     Por favor ingresa tu dirección.
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Contraseña</label>
-                                <input type="password" class="form-control" id="password" placeholder="Contraseña" required minlength="6">
+                                <input type="password" class="form-control" id="password" name="password"  required minlength="6">
                                 <div class="invalid-feedback">
                                     La contraseña debe tener al menos 6 caracteres.
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <h5>Genero</h5>
-                                <select name="sexo" required>
-                                    <option value="1">Femenino</option>
-                                    <option value="2">Masculino</option>
+                                <label for=" " class="form-label">Género</label>
+                                <select name="sexo" id="sexo" class="form-control" required>
+                                    <option value="">Seleccione...</option>
+                                    {% for genero in generos %}
+                                        <option value="{{ genero.id_genero }}">{{ genero.genero }}</option>
+                                    {% endfor %}
                                 </select>
+                                <div class="invalid-feedback">
+                                    Por favor seleccione un género.
+                                </div>
                             </div>
-                            <button class="btn btn-primary" type="submit">Registrarse</button>
+                            <button name="opcion" class="btn btn-primary" type="submit" value="agregar">Registrarse</button>
                         </form>
                     </div>
                 </div>
@@ -103,7 +109,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div>
-                            <p>ya puedes utilizar tu cuenta gracias por registrarte</p>
+                            <p>Ya puedes utilizar tu cuenta, gracias por registrarte.</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -111,6 +117,7 @@
                     </div>
                 </div>
             </div>
+            
     </body>
     <script>
         // Validar formulario

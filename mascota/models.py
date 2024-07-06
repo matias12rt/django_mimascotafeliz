@@ -30,7 +30,7 @@ class CategoriaPro(models.Model):
 
 class Producto(models.Model):
     id_producto = models.AutoField(primary_key=True)
-    codigo = models.CharField(max_length=20, unique=True)  # Nuevo campo para el código del producto
+    codigo = models.CharField(max_length=20, unique=True, default='default_code')  
     nombre_pro = models.CharField(max_length=100)
     descripcion_pro = models.TextField()
     valor_pro = models.DecimalField(max_digits=10, decimal_places=2)
@@ -60,6 +60,15 @@ class RegistroCuenta(models.Model):
 
     def __str__(self):
         return self.gmail_cuenta
+    
+class RegistroAdmin(models.Model):
+    id_registro_admin = models.AutoField(primary_key=True)
+    gmail_admin = models.EmailField(unique=True)
+    clave_admin = models.CharField(max_length=255)
+    cuenta_admin = models.OneToOneField(CuentaAdmin, on_delete=models.CASCADE, related_name='registro_admin', null=True, blank=True)
+
+    def __str__(self):
+        return self.gmail_admin
 
 class FacturaBoleta(models.Model):
     id_vol_fact = models.AutoField(primary_key=True)
