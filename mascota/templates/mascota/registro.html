@@ -26,13 +26,17 @@
                     <div class="offcanvas-body">
                       <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li class="nav-item">
-                          <a class="nav-link "  href="{% url 'index' %}">INICIO</a>
+                          <a class="nav-link "  href="{% url 'index' %}">HOME</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link active" aria-current="page" href="./registro.html">REGISTRASE</a>
                         </li>
                          <li class="nav-item">
+<<<<<<< Updated upstream
                             <a class="nav-link" href="./ventas.html">ENTRAR COMO INVITADO</a>
+=======
+                            <a class="nav-link" href="{% url 'tienda_invitado' %}">ENTRAR COMO INVITADO</a>
+>>>>>>> Stashed changes
                           </li>
                       </ul> 
                     </div>
@@ -47,61 +51,114 @@
                     <img src="{% static 'mascota/img/qqq.jpg'%} " width="80px" height="80px"></img>
                     <div class="form-content">
                         <h2 class="text-center mb-4">Formulario de Registro</h2>
+<<<<<<< Updated upstream
                         <form class="needs-validation" name="registro" novalidate>
                             <div class="mb-3">
                                 <label for="gmail" class="form-label">Gmail</label>
                                 <input type="email" class="form-control" id="gmail" placeholder="nombre@gmail.com" required pattern=".+@gmail\.com">
+=======
+                        <form action="registro" method="POST" class="needs-validation" novalidate>
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="gmail" class="form-label">Gmail</label>
+                                <input type="email" class="form-control" name="gmail" required>
+>>>>>>> Stashed changes
                                 <div class="invalid-feedback">
                                     Por favor ingresa un Gmail válido.
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="nombre" class="form-label">Nombre</label>
+<<<<<<< Updated upstream
                                 <input type="text" class="form-control" id="nombre" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ\s]+" placeholder="Nombre" required>
+=======
+                                <input type="text" class="form-control" id="nombre" name="nombre" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ\s]{3,}" required>
+>>>>>>> Stashed changes
                                 <div class="invalid-feedback">
-                                    Por favor ingresa tu nombre.
+                                    Por favor ingresa tu nombre (solo letras, al menos 3 caracteres).
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="apellido" class="form-label">Apellido</label>
+<<<<<<< Updated upstream
                                 <input type="text" class="form-control" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ\s]+" id="apellido" placeholder="Apellido" required>
                                 <div class="invalid-feedback">
                                     Por favor ingresa tu apellido no pueden ser numeros.
+=======
+                                <input type="text" class="form-control" id="apellido" name="apellido" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ\s]{3,}" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingresa tu apellido (solo letras, al menos 3 caracteres).
+>>>>>>> Stashed changes
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="direccion" class="form-label">Dirección</label>
+<<<<<<< Updated upstream
                                 <input type="text" class="form-control" id="direccion" minlength="6" placeholder="Dirección" required>
+=======
+                                <input type="text" class="form-control" id="direccion" name="direccion" minlength="6" required>
+>>>>>>> Stashed changes
                                 <div class="invalid-feedback">
                                     Por favor ingresa tu dirección.
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Contraseña</label>
+<<<<<<< Updated upstream
                                 <input type="password" class="form-control" id="password" placeholder="Contraseña" required minlength="6">
+=======
+                                <input type="password" class="form-control" id="password" name="password" required minlength="6">
+>>>>>>> Stashed changes
                                 <div class="invalid-feedback">
                                     La contraseña debe tener al menos 6 caracteres.
                                 </div>
                             </div>
                             <div class="mb-3">
+<<<<<<< Updated upstream
                                 <h5>Genero</h5>
                                 <select name="sexo" required>
                                     <option value="1">Femenino</option>
                                     <option value="2">Masculino</option>
+=======
+                                <label for="sexo" class="form-label">Género</label>
+                                <select name="sexo" id="sexo" class="form-control" required>
+                                    <option value="">Seleccione...</option>
+                                    {% for g in generos %}
+                                        <option value="{{ g.id_genero }}">{{ g.genero }}</option>
+                                    {% endfor %}
+>>>>>>> Stashed changes
                                 </select>
                             </div>
+<<<<<<< Updated upstream
                             <button class="btn btn-primary" type="submit">Registrarse</button>
+=======
+                            <input name="opcion" class="btn btn-primary" type="submit" value="agregar">
+>>>>>>> Stashed changes
                         </form>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="registro" tabindex="-1" aria-labelledby="registro" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="registro">Registro exitoso</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        
+                        <!-- Modal para mostrar mensajes -->
+                        <div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="registroModalLabel">Registro</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {% if modal_success %}
+                                            <div class="alert alert-success">{{ modal_success }}</div>
+                                        {% endif %}
+                                        {% if modal_error %}
+                                            <div class="alert alert-danger">{{ modal_error }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+<<<<<<< Updated upstream
                         <div>
                             <p>ya puedes utilizar tu cuenta gracias por registrarte</p>
                         </div>
@@ -130,7 +187,36 @@
                         form.classList.add('was-validated');
                     }, false);
                 });
+=======
+                        
+                
+        </body>
+        <script>
+         // Validar formulario y manejar el envío
+    (function () {
+        'use strict';
+        var forms = document.getElementsByClassName('needs-validation');
+        Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    form.submit(); // Envía el formulario si es válido
+                }
+                form.classList.add('was-validated');
+>>>>>>> Stashed changes
             }, false);
-        })();
-    </script>
+        });
+
+        // Mostrar modal si hay mensaje de éxito o error
+        var modalSuccess = "{{ modal_success }}";
+        var modalError = "{{ modal_error }}";
+
+        if (modalSuccess || modalError) {
+            var myModal = new bootstrap.Modal(document.getElementById('registroModal'));
+            myModal.show();
+        }
+    })();
+        </script>
 </html>

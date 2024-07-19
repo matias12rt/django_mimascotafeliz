@@ -28,6 +28,8 @@ class CategoriaPro(models.Model):
     def __str__(self):
         return self.nombre_cate
 
+
+
 class Producto(models.Model):
     id_producto = models.AutoField(primary_key=True)
     codigo = models.CharField(max_length=20, unique=True)  # Nuevo campo para el código del producto
@@ -39,6 +41,7 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.nombre_pro
+
 
 class CuentaCliente(models.Model):
     id_cliente = models.AutoField(primary_key=True)
@@ -60,6 +63,27 @@ class RegistroCuenta(models.Model):
 
     def __str__(self):
         return self.gmail_cuenta
+<<<<<<< Updated upstream
+=======
+    
+class Carrito(models.Model):
+    usuario = models.OneToOneField(RegistroCuenta, on_delete=models.CASCADE)
+    productos = models.ManyToManyField(Producto, through='CarritoItem')
+
+class CarritoItem(models.Model):
+    carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.PositiveIntegerField(default=1)
+    
+class RegistroAdmin(models.Model):
+    id_registro_admin = models.AutoField(primary_key=True)
+    gmail_admin = models.EmailField(unique=True)
+    clave_admin = models.CharField(max_length=255)
+    cuenta_admin = models.OneToOneField(CuentaAdmin, on_delete=models.CASCADE, related_name='registro_admin', null=True, blank=True)
+
+    def __str__(self):
+        return self.gmail_admin
+>>>>>>> Stashed changes
 
 class FacturaBoleta(models.Model):
     id_vol_fact = models.AutoField(primary_key=True)

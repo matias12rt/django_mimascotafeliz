@@ -29,7 +29,7 @@
                         <a class="nav-link" href="#" id="logout-link">CERRAR SESION</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'crud' %}">VOLVER A GESTION</a>
+                        <a class="nav-link" href="{% url 'crudAdmin' %}">VOLVER A GESTION</a>
                     </li>
                 </ul>
             </div>
@@ -65,25 +65,25 @@
         <div class="form-content">
         {% if productos %}
             <h2 class="text-center mb-4">Ingreso de Producto</h2>
-            <form class="needs-validation" action="{% url 'productoUpdate' %}" method="POST" enctype="multipart/form-data" novalidate>
+            <form class="needs-validation" action="{% url 'productoUpdate'%}" method="POST" enctype="multipart/form-data" novalidate>
                 {% csrf_token %}
                 <div class="mb-3">
-                    <label for="product_code" class="form-label">Código de Producto de Mascota</label>
-                    <input type="text" class="form-control" name="product_code" value="{{productos.codigo}}" placeholder="Ingrese el código del producto de mascota" required>
+                    <label for="product_code" class="form-label">Código del Producto </label>
+                    <input type="text" id="product_code" name="product_code" value="{{ productos.codigo }}" readonly>
                     <div class="invalid-feedback">
                         Por favor ingresa un código de producto válido.
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="producto" class="form-label">Nombre producto</label>
-                    <input type="text" class="form-control" name="nom_producto" value="{{productos.nombre_pro}}" minlength="3" pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s]+" required>
+                    <input type="text" class="form-control" name="nom_producto" value="{{ productos.nombre_pro }}" minlength="3" pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s]+" required>
                     <div class="invalid-feedback">
                         Por favor ingresa el nombre del producto.
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="descripcion" class="form-label">Descripcion</label>
-                    <input type="text" class="form-control" name="pro_descripcion" value="{{productos.descripcion_pro}}" pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s]+" required>
+                    <input type="text" class="form-control" name="pro_descripcion" value="{{ productos.descripcion_pro }}" pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s]+" required>
                     <div class="invalid-feedback">
                         Por favor ingresa una descripcion.
                     </div>
@@ -92,7 +92,7 @@
                     <label for="product_value" class="form-label">Valor del Producto</label>
                     <div class="input-group">
                         <span class="input-group-text">$</span>
-                        <input type="number" class="form-control" name="product_valor" value="{{productos.valor_pro }}" placeholder="Ingrese el valor del producto" required min="100">
+                        <input type="number" class="form-control" name="product_valor" value="{{ productos.valor_pro }}" placeholder="Ingrese el valor del producto" required min="100">
                     </div>
                     <div class="invalid-feedback">
                         El valor mínimo del producto debe ser de 100 pesos.
@@ -102,12 +102,7 @@
                     <select name="pro_categoria" class="form-control" required>
                         <option value="">Seleccione...</option>
                         {% for categorias in categoria %}
-
-                            {% if categorias.categorias == produtos.categoria.id_categoria %}
-                                <option value="{{categorias.id_categoria}}" selected>{{categorias.nombre_cate}}</option>
-                            {% else %}
-                                <option value="{{categorias.id_categoria}}">{{categorias.nombre_cate}}</option>
-                            {% endif %}
+                            <option value="{{ categorias.id_categoria }}" >{{ categorias.nombre_cate }}</option>
                         {% endfor %}
                     </select>
                     <div class="invalid-feedback">
@@ -116,7 +111,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="product_image" class="form-label">Imagen del Producto</label>
-                    <input type="file" class="form-control" id="product_image" name="product_image" value="{{ productos.imagen }}" accept="image/*" required>
+                    <input type="file" class="form-control" id="product_image" name="product_image" accept="image/*">
                     <div class="invalid-feedback">
                         Por favor sube una imagen del producto.
                     </div>
@@ -136,15 +131,25 @@
 </div>
 
 <!-- Modal de confirmación -->
-<div class="modal fade" id="registro" tabindex="-1" aria-labelledby="registroLabel" aria-hidden="true">
+<div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="registroLabel">Registro exitoso</h5>
+                <h5 class="modal-title" id="registroModalLabel">
+                    {% if modal_success %}
+                        Actualización Exitosa
+                    {% elif modal_error %}
+                        Error en la Actualización
+                    {% endif %}
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                El producto ha sido registrado exitosamente.
+                {% if modal_success %}
+                    El producto ha sido actualizado exitosamente.
+                {% elif modal_error %}
+                    {{ mensaje }}
+                {% endif %}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -152,27 +157,34 @@
         </div>
     </div>
 </div>
+
 </body>
 <script>
 //valida el formulario y muestra el modal
-     (function () {
-            'use strict';
-            window.addEventListener('load', function () {
-                var forms = document.getElementsByClassName('needs-validation');
-                Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', function (event) {       
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        } else {
-                            event.preventDefault(); // Evita el envío del formulario
-                            $('#registro').modal('show'); // Muestra el modal
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
+(function () {
+    'use strict';
+    var forms = document.getElementsByClassName('needs-validation');
+    Array.prototype.filter.call(forms, function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            } else {
+                form.submit(); // Envía el formulario si es válido
+            }
+            form.classList.add('was-validated');
+        }, false);
+    });
+
+    // Mostrar modal si hay mensaje de éxito o error
+    var modalSuccess = "{{ modal_success }}";
+    var modalError = "{{ modal_error }}";
+
+    if (modalSuccess || modalError) {
+        var myModal = new bootstrap.Modal(document.getElementById('registroModal'));
+        myModal.show();
+    }
+})();
         document.addEventListener('DOMContentLoaded', function () {
         var logoutLink = document.getElementById('logout-link');
         var confirmLogout = document.getElementById('confirm-logout');

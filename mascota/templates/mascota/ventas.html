@@ -25,13 +25,17 @@
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="nav-item">
+<<<<<<< Updated upstream
                   <a class="nav-link"  href="../index.html">INICIO</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link " href="./registro.html">REGISTRASE</a>
+=======
+                    <a class="nav-link" href="#" id="logout-link">CERRAR SESION</a>
+>>>>>>> Stashed changes
                 </li>
                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="./ventas.html">TIENDA</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'ventas' %}">TIENDA</a>
                   </li>
                   <li  class="nav-item">
                     <a class="nav-link" href="./ingresopro.html ">INGRESAR PRODUCTO</a>
@@ -40,7 +44,11 @@
                     <a class="nav-link" href="./veterinarios.html">VER ESPECIALISTAS</a>
                  </li>
                  <li class="nav-item">
+<<<<<<< Updated upstream
                   <a class="nav-link" href="./clientesregis.html">CLIENTES </a>
+=======
+                  <a class="nav-link" href="{% url 'boletas' %}">VER BOLETAS</a>
+>>>>>>> Stashed changes
                 </li>
               </ul> 
             </div>
@@ -50,6 +58,7 @@
             <p class="text-light mb-0 p-2 fs-6">TIENDA MI MASCOTA FELIZ</p>
           </header>
     </nav>
+<<<<<<< Updated upstream
 <!--card de productos -->
     <div class="album py-5 bg-body-tertiary">
         <div class="container">
@@ -145,31 +154,230 @@
                   </div>
                 </div>
               </div>
+=======
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">Confirmar Cierre de Sesión</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas cerrar sesión?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-primary" id="confirm-logout">Sí</button>
+                </div>
+>>>>>>> Stashed changes
             </div>
-          </div>
         </div>
+<<<<<<< Updated upstream
       </div>
+=======
+    </div>
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">CARRITO</button>
+            <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">TIENDA</button>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <!-- Pestaña del carrito -->
+        <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+            <table class="table">
+                <thead>
+                    <tr class="text-primary">
+                        <th scope="col">#</th>
+                        <th scope="col">Productos</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in carrito_items %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ item.producto.nombre_pro }}</td>
+                        <td>{{ item.producto.valor_pro }} CLP</td>
+                        <td>
+                            <input type="number" class="cantidad" data-producto-id="{{ item.producto.id_producto }}" value="{{ item.cantidad }}">
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-warning actualizar-cantidad" data-producto-id="{{ item.producto.id_producto }}">Actualizar</button>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5">Tu carrito está vacío.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <button type="button" class="btn btn-danger" id="vaciar-carrito">VACÍAR CARRITO</button>
+                <button type="button" class="btn btn-success" id="pagar-carrito">PAGAR</button>
+
+            </table>
+        </div>
+        <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+            <!-- card de productos -->
+            <div class="container">
+                <h1 class="mt-4">Lista de Productos</h1>
+                <!-- Formulario de búsqueda -->
+                <form method="get" class="mb-4" id="searchForm">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <input type="text" name="q" class="form-control" placeholder="Buscar por código o nombre" value="{{ query }}">
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary">Buscar</button>
+                        </div>
+                    </div>
+                </form>
+                <!-- Formulario de filtro por categoría -->
+                <form method="get" class="mb-4" id="filterForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select name="categoria" class="form-control" onchange="this.form.submit()">
+                                <option value="">Todas las categorías</option>
+                                {% for categoria in categorias %}
+                                <option value="{{ categoria.id }}" {% if categoria.id == categoria_id %}selected{% endif %}>{{ categoria.nombre_cate }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </form>
+                <div class="album py-5 bg-body-tertiary">
+                    <div class="container">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                            {% for producto in productos %}
+                            <div class="col">
+                                <div class="card shadow-sm">
+                                    <div class="position-relative">
+                                        {% if producto.imagen %}
+                                        <img src="{{ producto.imagen.url }}" class="bd-placeholder-img card-img-top" width="100%" height="225" alt="{{ producto.nombre_pro }}">
+                                        {% else %}
+                                        <img src="path/to/placeholder/image.jpg" class="bd-placeholder-img card-img-top" width="100%" height="225" alt="{{ producto.nombre_pro }}">
+                                        {% endif %}
+                                        <div class="position-absolute" style="bottom: 10px; right: 10px; background-color: rgba(255, 255, 255, 0.7); padding: 5px; border-radius: 5px;">
+                                            <small>Código producto: {{ producto.codigo }}</small>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5>{{ producto.nombre_pro }}</h5>
+                                        <p class="card-text">{{ producto.descripcion_pro }}</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-sm btn-outline-secondary add-to-cart" data-producto-id="{{ producto.id_producto }}">AÑADIR AL CARRITO</button>
+                                            </div>
+                                            <small class="text-body-secondary">{{ producto.valor_pro }} CLP</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+>>>>>>> Stashed changes
 </body>
 <script>
-//codigo jqueri para el carrito y sus funciones
-  $(document).ready(function() {
-    // Mostrar el carrito flotante suavemente al hacer clic en el botón comprar
-    $('#comprarBtn').click(function(event) {
-        event.stopPropagation(); // Evitar que el clic se propague al documento y oculte el carrito
-        $('#carritoFlotante').fadeIn();
-        $('#carritoContenido').fadeIn();
+     $(document).ready(function(){
+            $("#idMensajes").delay(200).fadeOut("slow");
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+        var logoutLink = document.getElementById('logout-link');
+        var confirmLogout = document.getElementById('confirm-logout');
+
+        logoutLink.addEventListener('click', function (event) {
+            event.preventDefault();
+            var logoutModal = new bootstrap.Modal(document.getElementById('logoutModal'));
+            logoutModal.show();
+        });
+
+        confirmLogout.addEventListener('click', function () {
+            window.location.href = '{% url "index" %}';
+        });
+        $('.add-to-cart').click(function() {
+            const productoId = $(this).data('producto-id');
+            $.ajax({
+                url: "{% url 'add_to_cart' %}",
+                method: "POST",
+                data: {
+                    producto_id: productoId,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    if (response.status === 'ok') {
+                        $('#carrito-body').append(
+                            `<tr>
+                                <th scope="row">#</th>
+                                <td>${response.producto_nombre}</td>
+                                <td></td>
+                                <td>${response.cantidad}</td>
+                            </tr>`
+                        );
+                    }
+                }
+            });
+        });
+        $('#vaciar-carrito').click(function() {
+            $.ajax({
+                url: "{% url 'vaciar_carrito' %}",
+                method: "POST",
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    if (response.status === 'ok') {
+                        location.reload();  // Recargar la página para actualizar el carrito
+                    }
+                }
+            });
+        });
+
+        $('.actualizar-cantidad').click(function() {
+            const productoId = $(this).data('producto-id');
+            const nuevaCantidad = $(this).closest('tr').find('.cantidad').val();
+            
+            $.ajax({
+                url: "{% url 'actualizar_cantidad' %}",
+                method: "POST",
+                data: {
+                    producto_id: productoId,
+                    cantidad: nuevaCantidad,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    if (response.status === 'ok') {
+                        location.reload();  // Recargar la página para actualizar el carrito
+                    }
+                }
+            });
+        });
+
+        $('#pagar-carrito').click(function() {
+            $.ajax({
+                url: "{% url 'pagar_carrito' %}",
+                method: "POST",
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    if (response.status === 'ok') {
+                        alert('Pago realizado con éxito');
+                        location.reload();  // Recargar la página para actualizar el carrito
+                    }
+                }
+            });
+        });
     });
-
-
-    // Mostrar la imagen del producto al pasar el mouse sobre el carrito
-    $('#carritoFlotante').hover(
-        function() {
-            $('#carritoContenido').fadeIn();
-        },
-        function() {
-            $('#carritoContenido').fadeOut();
-        }
-    );
-});
-  </script>
+</script>
 </html>

@@ -25,25 +25,25 @@
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="nav-item">
-                  <a class="nav-link "  href="{% url 'index' %}">INICIO</a>
+                  <a class="nav-link "  href="{% url 'index' %}">HOME</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{% url 'registro' %}">REGISTRASE COMO VENDEDOR</a>
+                  <a class="nav-link active" aria-current="page" href="{% url 'registro_admin' %}">REGISTRASE COMO VENDEDOR</a>
                 </li>
               </ul> 
             </div>
           </div>
         </div>
         <header class="container-fluid bg-primary d-flex justify-content-center" id="titu">
-            <p class="text-light mb-0 p-2 fs-6">REGISTRATE EN MI MASCOTA FELIZ</p>
+            <p class="text-light mb-0 p-2 fs-6">REGISTRO VENDEDOR</p>
           </header>
       </nav>
       <div class="container form-container">
         <div class="form-box">
             <img src="{% static 'mascota/img/admin.jpg' %}" width="80px" height="80px">
             <div class="form-content">
-                <h2 class="text-center mb-4">Formulario de Registro</h2>
-                <form class="needs-validation" name="registro" method="post" novalidate>
+                <h2 class="text-center mb-4">Formulario de Registro Vendedor</h2>
+                <form action="{% url 'registro_admin' %}" method="POST" class="needs-validation" novalidate>
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="gmail" class="form-label">Gmail</label>
@@ -54,16 +54,16 @@
                     </div>
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ\s]+" required>
+                        <input type="text" class="form-control" id="nombre" name="nombre" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ\s]{3,}" required>
                         <div class="invalid-feedback">
-                            Por favor ingresa tu nombre.
+                            Por favor ingresa tu nombre (solo letras, al menos 3 caracteres).
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="apellido" class="form-label">Apellido</label>
-                        <input type="text" class="form-control" id="apellido" name="apellido" required>
+                        <input type="text" class="form-control" id="apellido" name="apellido" pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ\s]{3,}" required>
                         <div class="invalid-feedback">
-                            Por favor ingresa tu apellido.
+                            Por favor ingresa tu apellido (solo letras, al menos 3 caracteres).
                         </div>
                     </div>
                     <div class="mb-3">
@@ -92,15 +92,22 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="registro" tabindex="-1" aria-labelledby="registro" aria-hidden="true">
+    
+    <!-- Modal para mostrar mensajes -->
+    <div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="registro">Registro exitoso</h5>
+                    <h5 class="modal-title" id="registroModalLabel">Registro Admin</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div>
-                    <p>Ya puedes utilizar tu cuenta, gracias por registrarte.</p>
+                <div class="modal-body">
+                    {% if modal_success %}
+                        <div class="alert alert-success">{{ modal_success }}</div>
+                    {% endif %}
+                    {% if modal_error %}
+                        <div class="alert alert-danger">{{ modal_error }}</div>
+                    {% endif %}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -112,43 +119,61 @@
 
 </body>
 <script>
-    (function () {
-        'use strict';
-        window.addEventListener('load', function () {
-            var forms = document.getElementsByClassName('needs-validation');
-            Array.prototype.filter.call(forms, function (form) {
-                form.addEventListener('submit', function (event) {
-                    var gmail = document.getElementById('gmail');
-                    var palabra = document.getElementById('palabra');
-                    var gmailPattern = /^[a-zA-Z0-9._%+-]+@mascota\.cl$/;
-                    var valid = true;
+(function () {
+    'use strict';
+    window.addEventListener('load', function () {
+        var forms = document.getElementsByClassName('needs-validation');
+        Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+                var gmail = document.getElementById('gmail');
+                var palabra = document.getElementById('palabra');
+                var gmailPattern = /^[a-zA-Z0-9._%+-]+@mascota\.cl$/;
+                var valid = true;
 
-                    if (!gmailPattern.test(gmail.value)) {
-                        gmail.setCustomValidity('Correo electrónico debe tener la estructura nombre@mascota.cl.');
-                        valid = false;
-                    } else {
-                        gmail.setCustomValidity('');
-                    }
+                // Validación del correo electrónico
+                if (!gmailPattern.test(gmail.value)) {
+                    gmail.setCustomValidity('Correo electrónico debe tener la estructura nombre@mascota.cl.');
+                    valid = false;
+                } else {
+                    gmail.setCustomValidity('');
+                }
 
-                    if (palabra.value !== 'feliz') {
-                        palabra.setCustomValidity('Palabra clave incorrecta.');
-                        valid = false;
-                    } else {
-                        palabra.setCustomValidity('');
-                    }
+                // Validación de la palabra clave
+                if (palabra.value !== 'feliz') {
+                    palabra.setCustomValidity('Palabra clave incorrecta.');
+                    valid = false;
+                } else {
+                    palabra.setCustomValidity('');
+                }
 
-                    if (form.checkValidity() === false || !valid) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    } else {
-                        event.preventDefault(); // Evita el envío del formulario
-                        $('#registro').modal('show'); // Muestra el modal
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
-    })();
+                // Validación del formulario
+                if (form.checkValidity() === false || !valid) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    event.preventDefault(); // Evita el envío del formulario para manejarlo con AJAX
+
+                    // Enviar formulario usando AJAX
+                    $.ajax({
+                        type: "POST",
+                        url: form.action,
+                        data: $(form).serialize(),
+                        success: function (response) {
+                            // Mostrar el modal con el mensaje correspondiente
+                            if (response.modal_success) {
+                                $('#registroModal .modal-body').html('<div class="alert alert-success">' + response.modal_success + '</div>');
+                            } else if (response.modal_error) {
+                                $('#registroModal .modal-body').html('<div class="alert alert-danger">' + response.modal_error + '</div>');
+                            }
+                            $('#registroModal').modal('show'); // Mostrar el modal
+                        }
+                    });
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
 </script>
 
 </html>

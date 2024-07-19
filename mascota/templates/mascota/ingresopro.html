@@ -23,6 +23,7 @@
               <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
+<<<<<<< Updated upstream
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="nav-item">
                   <a class="nav-link "  href="../index.html">INICIO</a>
@@ -41,6 +42,19 @@
                     <a class="nav-link" href="./ventas.html ">TIENDA</a>
                   </li>
               </ul> 
+=======
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="logout-link">CERRAR SESION</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'crudAdmin' %}">VOLVER A GESTION</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">INGRESAR PRODUCTO</a>
+                    </li>
+                </ul>
+>>>>>>> Stashed changes
             </div>
           </div>
         </div>
@@ -49,6 +63,7 @@
           </header>
       </nav>
 <!--formulario de registro producto-->
+<<<<<<< Updated upstream
       <div class="container form-container">
         <div class="form-box">
             <div class="form-producto"></div>
@@ -122,26 +137,147 @@
             </div>
         </div>
     </div> 
+=======
+<div class="container form-container">
+    <div class="form-box">
+        <img src="{% static 'mascota/img/animales.jpg' %}" width="400px" height="600px">
+        <div class="form-content">
+            <h2 class="text-center mb-4">Ingreso de Producto</h2>
+            <form id="formRegistro" class="needs-validation" action="agregarpro" method="POST" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="product_code" class="form-label">Código de Producto de Mascota</label>
+                    <input type="text" class="form-control" name="product_code" placeholder="Ingrese el código del producto de mascota" required>
+                    <div class="invalid-feedback">
+                        Por favor ingresa un código de producto válido.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="producto" class="form-label">Nombre producto</label>
+                    <input type="text" class="form-control" name="nom_producto" placeholder="Nombre producto" minlength="3" pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s]+" required>
+                    <div class="invalid-feedback">
+                        Por favor ingresa el nombre del producto.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripcion</label>
+                    <input type="text" class="form-control" name="pro_descripcion" placeholder="Descripcion" pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s]+" required>
+                    <div class="invalid-feedback">
+                        Por favor ingresa una descripcion.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="product_value" class="form-label">Valor del Producto</label>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control" name="product_valor" placeholder="Ingrese el valor del producto" required min="100">
+                    </div>
+                    <div class="invalid-feedback">
+                        El valor mínimo del producto debe ser de 100 pesos.
+                    </div>
+                </div>
+                <div class="mb-3">                    
+                    <select name="pro_categoria" class="form-control" required>
+                        <option value="">Seleccione...</option>
+                        {% for categorias in categoria %}
+                            <option value="{{categorias.id_categoria}}">{{categorias.nombre_cate}}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">
+                        Por favor selecciona una categoría.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="product_image" class="form-label">Imagen del Producto</label>
+                    <input type="file" class="form-control" id="product_image" name="product_image" accept="image/*" required>
+                    <div class="invalid-feedback">
+                        Por favor sube una imagen del producto.
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="submit">Registrar Producto</button>
+                <div id="idMensajes" class="mt-3">
+                    {% if mensaje %}
+                        <div class="alert alert-info" role="alert">
+                            {{ mensaje }}
+                        </div>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registroModalLabel">
+                    {% if modal_success %}
+                        Registro Exitoso
+                    {% elif modal_error %}
+                        Error en el Registro
+                    {% endif %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {% if modal_success %}
+                    El producto ha sido registrado exitosamente.
+                {% elif modal_error %}
+                    {{ mensaje }}
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+>>>>>>> Stashed changes
 </body>
 <script>
-//valida el formulario y muestra el modal
-     (function () {
-            'use strict';
-            window.addEventListener('load', function () {
-                var forms = document.getElementsByClassName('needs-validation');
-                Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', function (event) {       
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        } else {
-                            event.preventDefault(); // Evita el envío del formulario
-                            $('#registro').modal('show'); // Muestra el modal
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
+    (function () {
+        'use strict';
+        var forms = document.getElementsByClassName('needs-validation');
+        Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    form.submit(); // Envía el formulario si es válido
+                }
+                form.classList.add('was-validated');
             }, false);
+<<<<<<< Updated upstream
         })();
+=======
+        });
+
+        // Mostrar modal si hay mensaje de éxito o error
+        var modalSuccess = "{{ modal_success }}";
+        var modalError = "{{ modal_error }}";
+
+        if (modalSuccess || modalError) {
+            var myModal = new bootstrap.Modal(document.getElementById('registroModal'));
+            myModal.show();
+        }
+    })();
+    document.addEventListener('DOMContentLoaded', function () {
+        var logoutLink = document.getElementById('logout-link');
+        var confirmLogout = document.getElementById('confirm-logout');
+
+        logoutLink.addEventListener('click', function (event) {
+            event.preventDefault();
+            var logoutModal = new bootstrap.Modal(document.getElementById('logoutModal'));
+            logoutModal.show();
+        });
+
+        confirmLogout.addEventListener('click', function () {
+            window.location.href = '{% url "index" %}';
+        });
+    });
+>>>>>>> Stashed changes
 </script>
 </html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generos</title>
+    <link rel="stylesheet" href="{% static 'mascota/css/bootstrap.min.css' %}">
+    <script src="{% static 'mascota/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'mascota/js/color-modes.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'mascota/css/style.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">MI MASCOTA FELIZ</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">MENU PRINCIPAL</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'crudAdmin' %}">VOLVER A GESTION</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"  href="{% url 'agregarpro' %}">INGRESAR PRODUCTO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">INGRESAR CATEGORIA</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">INGRESAR GENEROS</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <header class="container-fluid bg-primary d-flex justify-content-center" id="titu">
+            <p class="text-light mb-0 p-2 fs-6">ADMINISTRACION DE GENEROS</p>
+        </header>
+    </nav>
+    <div class="container">
+        <h1 class="mt-4">Lista de Géneros</h1>
+        <form id="formRegistro" class="needs-validation" method="POST" novalidate>
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="producto" class="form-label">Nombre de género</label>
+                <input type="text" class="form-control" name="nom_genero" id="nom_genero" placeholder="Nombre género" minlength="3" pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s]+" required>
+                <div class="invalid-feedback">
+                    Por favor ingresa el nombre del género.
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Registrar género</button>
+            <div id="idMensajes" class="mt-3"></div>
+        </form>
+
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th scope="col">Código</th>
+                    <th scope="col">Géneros</th>
+                    <th scope="col">Eliminar</th>
+                    <th scope="col">Modificar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if generos %}
+                    {% for x in generos %}
+                        <tr id="genero-{{ x.id_genero }}">
+                            <td>{{ x.id_genero }}</td>
+                            <td id="nombre-genero-{{ x.id_genero }}">{{ x.genero }}</td>
+                            <td>
+                                <button data-id="{{ x.id_genero }}" class="btn btn-danger eliminar-g">Eliminar</button>
+                            </td>
+                            <td>
+                                <button data-id="{{ x.id_genero }}" class="btn btn-primary modificar-g">Modificar</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4">No hay géneros disponibles.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+</div>
+
+</body>
+<script>
+$(document).ready(function () {
+        // Validación del formulario antes de enviarlo
+        $('#formRegistro').on('submit', function (e) {
+            e.preventDefault(); // Evitar el envío normal del formulario
+            if (this.checkValidity() === false) {
+                e.stopPropagation();
+                $(this).addClass('was-validated');
+            } else {
+                const formData = $(this).serialize(); // Obtener los datos del formulario
+
+                $.ajax({
+                    url: '{% url "listgenero" %}', // Cambia esto según tu URL
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        // Limpiar mensajes anteriores
+                        $('#idMensajes').empty();
+                        
+                        if (response.success) {
+                            $('#idMensajes').append('<div class="alert alert-info alert-dismissible fade show" role="alert">' + response.mensaje + '</div>');
+                            setTimeout(function() {
+                                $('#idMensajes').fadeOut(); // Ocultar mensaje después de 5 segundos
+                            }, 5000);
+                        } else {
+                            $('#idMensajes').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">' + response.mensaje + '</div>');
+                            setTimeout(function() {
+                                $('#idMensajes').fadeOut(); // Ocultar mensaje después de 5 segundos
+                            }, 5000);
+                        }
+                        // Opcional: Agregar el nuevo género a la tabla si se creó correctamente
+                        if (response.genero) {
+                            $('tbody').append('<tr id="genero-' + response.genero.id_genero + '"><td>' + response.genero.id_genero + '</td><td>' + response.genero.genero + '</td><td><button data-id="' + response.genero.id_genero + '" class="btn btn-danger eliminar-g">Eliminar</button></td><td><a href="#" class="btn btn-primary">Modificar</a></td></tr>');
+                        }
+                    },
+                    error: function () {
+                        $('#idMensajes').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">Error al registrar el género.</div>');
+                    }
+                });
+            }
+        });
+        
+        // Manejo de eliminación de género
+        $(document).on('click', '.eliminar-g', function (e) {
+            e.preventDefault();
+            const id = $(this).data('id');
+            if (confirm('¿Estás seguro de que deseas eliminar este género?')) {
+                $.ajax({
+                    url: '{% url "eliminarG" pk=0 %}'.replace('0', id),
+                    type: 'POST',
+                    data: {
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            $('#genero-' + id).remove();
+                            $('#idMensajes').append('<div class="alert alert-info alert-dismissible fade show" role="alert">' + response.mensaje + '</div>');
+                            setTimeout(function() {
+                                $('#idMensajes').fadeOut(); // Ocultar mensaje después de 5 segundos
+                            }, 5000);
+                        } else {
+                            $('#idMensajes').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">' + response.mensaje + '</div>');
+                            setTimeout(function() {
+                                $('#idMensajes').fadeOut(); // Ocultar mensaje después de 5 segundos
+                            }, 5000);
+                        }
+                    },
+                    error: function () {
+                        $('#idMensajes').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">Error al intentar eliminar el género.</div>');
+                    }
+                });
+            }
+        });
+        $(document).ready(function () {
+    // Manejo de modificación de género
+        $(document).on('click', '.modificar-g', function (e) {
+            const id = $(this).data('id');
+            const nombreCelda = $('#nombre-genero-' + id);
+
+            // Si el botón está en modo "Modificar"
+            if ($(this).text() === "Modificar") {
+                const nombreActual = nombreCelda.text();
+                nombreCelda.html('<input type="text" value="' + nombreActual + '" class="form-control" id="input-nombre-genero-' + id + '">');
+                $(this).text('Guardar').removeClass('modificar-g').addClass('guardar-g');
+            } else { // Si está en modo "Guardar"
+                const nuevoNombre = $('#input-nombre-genero-' + id).val().trim();
+                
+                // Asegúrate de que el nombre no esté vacío
+                if (nuevoNombre === "") {
+                    alert("El nombre no puede estar vacío.");
+                    return;
+                }
+
+                $.ajax({
+                    url: '{% url "editarG" pk=0 %}'.replace('0', id),
+                    type: 'POST',
+                    data: {
+                        'csrfmiddlewaretoken': '{{ csrf_token }}',
+                        'nombre_genero': nuevoNombre
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            nombreCelda.html(nuevoNombre);
+                            $('#idMensajes').append('<div class="alert alert-info alert-dismissible fade show" role="alert">' + response.mensaje + '</div>');
+                            setTimeout(function() {
+                                $('#idMensajes').fadeOut();
+                            }, 5000);
+                        } else {
+                            $('#idMensajes').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">' + response.mensaje + '</div>');
+                            setTimeout(function() {
+                                $('#idMensajes').fadeOut();
+                            }, 5000);
+                        }
+                        // Cambiar el botón de vuelta a "Modificar"
+                        $(this).removeClass('guardar-g').addClass('modificar-g').text('Modificar');
+                    }.bind(this), // Aseguramos que 'this' se refiere al botón
+                    error: function () {
+                        $('#idMensajes').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">Error al intentar guardar el género.</div>');
+                    }
+                });
+            }
+        });
+    });
+});
+    
+</script>
+</html>

@@ -33,7 +33,10 @@ import os
 
 # MEDIA settings
 MEDIA_URL = '/media/'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+LOGIN_URL = 'index'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
